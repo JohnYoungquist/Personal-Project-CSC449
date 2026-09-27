@@ -63,7 +63,7 @@ Command-line output from `mvnw.cmd spring-boot:run`:
 
 Browser result at `http://localhost:8080/greeting?name=john`:
 
-![Browser showing Hello, john!](docs/screenshots/local-greeting-page.png)
+![Browser showing Hello, john!](docs/screenshots/greeting-page-john.png)
 
 ### Evaluating the MVC implementation
 
