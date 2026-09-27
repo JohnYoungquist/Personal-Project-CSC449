@@ -59,11 +59,11 @@ These screenshots were captured on my Windows computer using Java 26.0.2.
 
 Command-line output from `mvnw.cmd spring-boot:run`:
 
-![Command-line output from running the Spring Boot application](docs/screenshots/step-b-command-line.png)
+![Command-line output from running the Spring Boot application](docs/screenshots/local-command-line.png)
 
 Browser result at `http://localhost:8080/greeting?name=john`:
 
-![Browser showing Hello, john!](docs/screenshots/greeting-john.png)
+![Browser showing Hello, john!](docs/screenshots/local-greeting-page.png)
 
 ### Evaluating the MVC implementation
 
