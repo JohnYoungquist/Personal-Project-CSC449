@@ -30,13 +30,15 @@ java -jar target/serving-web-content-complete-0.0.1-SNAPSHOT.jar
 
 ### Screenshots
 
-Command-line output from `./mvnw spring-boot:run`:
+These screenshots were captured on my Windows computer using Java 26.0.2.
+
+Command-line output from `mvnw.cmd spring-boot:run`:
 
 ![Command-line output from running the Spring Boot application](docs/screenshots/step-b-command-line.png)
 
-Browser result at `http://localhost:8080/greeting?name=John`:
+Browser result at `http://localhost:8080/greeting?name=john`:
 
-![Browser showing Hello, John!](docs/screenshots/greeting-john.png)
+![Browser showing Hello, john!](docs/screenshots/greeting-john.png)
 
 ### Evaluating the MVC implementation
 
@@ -48,7 +50,7 @@ This application uses the Model-View-Controller (MVC) pattern:
 | View | `src/main/resources/templates/greeting.html` | Thymeleaf template that renders `Hello, ${name}!` as HTML on the server. |
 | Controller | `GreetingController.java` | `@Controller` class. `@GetMapping("/greeting")` handles the request, reads the optional `name` query parameter with a default of `World`, adds it to the model, and returns the view name `greeting`. |
 
-Request flow: the browser sends `GET /greeting?name=John`. Spring's `DispatcherServlet` routes the request to `GreetingController.greeting()`. The controller stores `name` in the model and returns `"greeting"`. Thymeleaf resolves `templates/greeting.html`, fills in the model value, and returns the finished HTML. The console log shows `DispatcherServlet` initializing when the first request arrives.
+Request flow: the browser sends `GET /greeting?name=John`. Spring's `DispatcherServlet` routes the request to `GreetingController.greeting()`. The controller stores `name` in the model and returns `"greeting"`. Thymeleaf resolves `templates/greeting.html`, fills in the model value, and returns the finished HTML. `DispatcherServlet` is initialized when the first request arrives.
 
 Strengths:
 
