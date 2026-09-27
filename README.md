@@ -12,21 +12,46 @@ The [`serving-web-content`](serving-web-content) folder contains a Spring Boot w
 
 ### Running the application
 
-Requirements: JDK 17 or later. Maven is not needed because the project includes the Maven Wrapper.
+Requirements: JDK 17 or later (the screenshots use Java 26.0.2). Maven and Git are not required. The project includes the Maven Wrapper, and the code can be downloaded as a [ZIP file](https://github.com/JohnYoungquist/Personal-Project-CSC449/archive/refs/heads/main.zip).
+
+#### Windows (Command Prompt), as used for the screenshots
+
+1. Download and extract the ZIP.
+2. Open Command Prompt and go to the project folder. Use `/d` when the folder is on a different drive:
+   ```
+   cd /d "D:\Downloads\Personal-Project-CSC449-main\Personal-Project-CSC449-main\serving-web-content"
+   ```
+3. If `JAVA_HOME` is not set, point it to the installed JDK for this window:
+   ```
+   set "JAVA_HOME=C:\Program Files\Java\jdk-26.0.2"
+   ```
+4. Run the application:
+   ```
+   mvnw.cmd spring-boot:run
+   ```
+5. Wait for `Tomcat started on port 8080` and `Started ServingWebContentApplication`.
+6. Open [http://localhost:8080/greeting?name=john](http://localhost:8080/greeting?name=john). The page shows `Hello, john!`. The greeting uses the exact text in the URL, and without the `name` parameter it shows `Hello, World!`.
+7. Press Ctrl+C in Command Prompt to stop the application.
+
+`WARNING:` lines about restricted or `sun.misc.Unsafe` methods can appear with newer JDKs and can be ignored.
+
+If startup fails with `Port 8080 was already in use`, find the program using the port with `netstat -ano | findstr :8080`, close it, and run the application again.
+
+#### macOS or Linux
 
 ```bash
 cd serving-web-content
-./mvnw spring-boot:run        # Windows: mvnw.cmd spring-boot:run
+./mvnw spring-boot:run
 ```
 
-Then open [http://localhost:8080/greeting?name=John](http://localhost:8080/greeting?name=John). The page shows `Hello, John!`. Without the `name` parameter, it shows `Hello, World!`.
+#### Executable JAR
 
-To build and run the executable JAR:
-
-```bash
-./mvnw clean package
-java -jar target/serving-web-content-complete-0.0.1-SNAPSHOT.jar
 ```
+mvnw.cmd clean package
+java -jar target\serving-web-content-complete-0.0.1-SNAPSHOT.jar
+```
+
+On macOS or Linux, use `./mvnw clean package` and `target/serving-web-content-complete-0.0.1-SNAPSHOT.jar`.
 
 ### Screenshots
 
@@ -50,7 +75,7 @@ This application uses the Model-View-Controller (MVC) pattern:
 | View | `src/main/resources/templates/greeting.html` | Thymeleaf template that renders `Hello, ${name}!` as HTML on the server. |
 | Controller | `GreetingController.java` | `@Controller` class. `@GetMapping("/greeting")` handles the request, reads the optional `name` query parameter with a default of `World`, adds it to the model, and returns the view name `greeting`. |
 
-Request flow: the browser sends `GET /greeting?name=John`. Spring's `DispatcherServlet` routes the request to `GreetingController.greeting()`. The controller stores `name` in the model and returns `"greeting"`. Thymeleaf resolves `templates/greeting.html`, fills in the model value, and returns the finished HTML. `DispatcherServlet` is initialized when the first request arrives.
+Request flow: the browser sends `GET /greeting?name=john`. Spring's `DispatcherServlet` routes the request to `GreetingController.greeting()`. The controller stores `name` in the model and returns `"greeting"`. Thymeleaf resolves `templates/greeting.html`, fills in the model value, and returns the finished HTML. `DispatcherServlet` is initialized when the first request arrives.
 
 Strengths:
 
