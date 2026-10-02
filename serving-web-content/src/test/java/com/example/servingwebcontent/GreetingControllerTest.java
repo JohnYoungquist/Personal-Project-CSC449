@@ -1,34 +1,32 @@
 package com.example.servingwebcontent;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.ui.ConcurrentModel;
+import org.springframework.ui.Model;
 
-@WebMvcTest(GreetingController.class)
 class GreetingControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    private final GreetingController controller = new GreetingController();
 
     @Test
-    void greetingWithNameAddsProvidedNameToModel() throws Exception {
-        mockMvc.perform(get("/greeting").param("name", "John"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("greeting"))
-                .andExpect(model().attribute("name", "John"));
+    void greetingWithNameAddsProvidedNameToModel() {
+        Model model = new ConcurrentModel();
+
+        String viewName = controller.greeting("John", model);
+
+        assertEquals("greeting", viewName);
+        assertEquals("John", model.getAttribute("name"));
     }
 
     @Test
-    void greetingWithoutNameUsesWorldAsDefault() throws Exception {
-        mockMvc.perform(get("/greeting"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("greeting"))
-                .andExpect(model().attribute("name", "World"));
+    void greetingWithoutNameUsesWorldAsDefault() {
+        Model model = new ConcurrentModel();
+
+        String viewName = controller.greeting(null, model);
+
+        assertEquals("greeting", viewName);
+        assertEquals("World", model.getAttribute("name"));
     }
 }

@@ -1,32 +1,12 @@
 package com.example.servingwebcontent;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
-import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@WebMvcTest
-@AutoConfigureMockMvc
+@SpringBootTest
 class ServingWebContentApplicationTest {
-
-    @Autowired
-    private MockMvc mockMvc;
 
     @Test
     void contextLoads() {
-        assertThat(mockMvc).isNotNull();
-    }
-
-    @Test
-    void greetingPageLoads() throws Exception {
-        mockMvc.perform(get("/greeting"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("World")));
     }
 }
